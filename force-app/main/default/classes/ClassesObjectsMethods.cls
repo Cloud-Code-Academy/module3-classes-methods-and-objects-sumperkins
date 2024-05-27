@@ -150,12 +150,12 @@ public with sharing class ClassesObjectsMethods {
      * @return The absolute value of the difference
      */
     public static Double calculateDifferenceOfSquares(Double a, Double b) {
-        // Square the input numbers using the Math.pow() function
+        Double squareA = Math.pow(a, 2);
+        Double squareB = Math.pow(b, 2);
 
-        // Calculate the absolute difference using Math.abs() function
+        Double difference = Math.abs(squareA - squareB);
 
-        // Return the result
-        return null; // Replace null with the variable you used to store the result
+        return difference;
     }
 
     /**
@@ -165,10 +165,12 @@ public with sharing class ClassesObjectsMethods {
      * @return A integer between 50 and 100.
      */
     public static Integer generateRandomNumber() {
-        // Use Math class to generate number between 50 and 100
+        Integer min = 50;
+        Integer max = 100;
+        
+        Integer random = (Integer)(Math.random() * (max - min +1)) + min;
 
-        // Return the random integer
-        return null; // Replace null with the variable you used to store the result
+        return random;
     }
 
     /**
@@ -178,12 +180,10 @@ public with sharing class ClassesObjectsMethods {
      * @return The current date in the current user locale format.
      */
     public static String getCurrentDate() {
-        // Get the todays date
+        Date currentDate = date.today(); 
+        String myDate = currentDate.format(); 
 
-        // Format the current date
-
-        // Return the result
-        return null; // Replace null with the variable you used to store the result
+        return myDate;
     }
 
     /**
@@ -193,15 +193,20 @@ public with sharing class ClassesObjectsMethods {
      * @return The number of the day of the week for the given date.
      */
     public static String getDayOfWeek(DateTime dt) {
-        // Define a map of day of the week as a key and day number as the value
-        // Monday = 1, Tuesday = 2, etc.
+        Map<String, Integer> dayOfWeekMap = new Map<String, Integer>();
+            dayOfWeekMap.put('Monday', 1);
+            dayOfWeekMap.put('Tuesday', 2);
+            dayOfWeekMap.put('Wednesday', 3);
+            dayOfWeekMap.put('Thursday', 4);
+            dayOfWeekMap.put('Friday', 5);
+            dayOfWeekMap.put('Saturday', 6);
+            dayOfWeekMap.put('Sunday', 7);
 
-        // Get the day name using .format('EEEE');
+        String dayName = dt.format('EEEE');
 
-        // Get the day number from the map using the day name
+        Integer dayNumber = dayOfWeekMap.get(dayName);
 
-        // Return the result as a string
-        return null; // Replace null with the variable you used to store the result
+        return string.valueof(dayNumber);
     }
 
 
@@ -215,11 +220,30 @@ public with sharing class ClassesObjectsMethods {
      * @return The a positive number years between the two dates, or null if either date is null.
      */
     public static Integer calculateYearDifference(Date d1, Date d2) {
-
-        // Subtract the difference in years
-
-        return null; // Replace null with the variable you used to store the result
+        if (d1 == null || d2 == null) {
+            return null;
+        }
+        
+    // Ensure d1 is the earlier date
+    if (d1 > d2) {
+        Date temp = d1;
+        d1 = d2;
+        d2 = temp;
     }
+
+    Integer year1 = d1.year();
+    Integer year2 = d2.year();
+
+    // Calculate the initial difference in years
+    Integer yearsDifference = year2 - year1;
+
+    // Adjust the difference if d2 has not reached the month and day of d1 in the same year span
+    if (d2.month() < d1.month() || (d2.month() == d1.month() && d2.day() < d1.day())) {
+        yearsDifference--;
+    }
+
+    return yearsDifference;
+}
 
     /**
      * Question 11
@@ -230,19 +254,21 @@ public with sharing class ClassesObjectsMethods {
      */
     public class Book {
         // Declare three public instance variables - title, author, pages
-        // title
-        // author
-        // pages
+        public String title; // title
+        public String author; // author
+        public STring pages; // pages
     
         // Book constructor to initialize the title and author
-        public Book() {
+        public Book(String title, String author, Integer pages) {
             // Initialize the title and author
+            this.title = title;
+            this.author = author;
         }
     
         // Method that returns the details of the book
         public String getBookDetails() {
             // return A string containing the details of the book in the format "Title: <title>, Author: <author>"
-            return null; // Replace null with the variable you used to store the result
+            return 'Title: ' + this.title + ', Author: ' + this.author + ', Pages: ' + this.pages; // Replace null with the variable you used to store the result
         }
     }
     
