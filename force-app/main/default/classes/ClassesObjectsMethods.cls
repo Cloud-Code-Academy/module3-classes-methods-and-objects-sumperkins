@@ -224,25 +224,12 @@ public with sharing class ClassesObjectsMethods {
             return null;
         }
         
-    // Ensure d1 is the earlier date
-    if (d1 > d2) {
-        Date temp = d1;
-        d1 = d2;
-        d2 = temp;
-    }
-
     Integer year1 = d1.year();
     Integer year2 = d2.year();
 
-    // Calculate the initial difference in years
-    Integer yearsDifference = year2 - year1;
+    Integer yearDifference = Math.abs(year2 - year1);
 
-    // Adjust the difference if d2 has not reached the month and day of d1 in the same year span
-    if (d2.month() < d1.month() || (d2.month() == d1.month() && d2.day() < d1.day())) {
-        yearsDifference--;
-    }
-
-    return yearsDifference;
+    return yearDifference;
 }
 
     /**
@@ -256,10 +243,10 @@ public with sharing class ClassesObjectsMethods {
         // Declare three public instance variables - title, author, pages
         public String title; // title
         public String author; // author
-        public STring pages; // pages
+        public Integer pages; // pages
     
         // Book constructor to initialize the title and author
-        public Book(String title, String author, Integer pages) {
+        public Book(String title, String author) {
             // Initialize the title and author
             this.title = title;
             this.author = author;
@@ -268,7 +255,7 @@ public with sharing class ClassesObjectsMethods {
         // Method that returns the details of the book
         public String getBookDetails() {
             // return A string containing the details of the book in the format "Title: <title>, Author: <author>"
-            return 'Title: ' + this.title + ', Author: ' + this.author + ', Pages: ' + this.pages; // Replace null with the variable you used to store the result
+            return 'Title: ' + this.title + ', Author: ' + this.author; // Replace null with the variable you used to store the result
         }
     }
     
@@ -280,6 +267,7 @@ public with sharing class ClassesObjectsMethods {
      * @return A string containing the details of the book.
      */
     public static String createAndGetBookDetails() {
+        
         // Create a Book object with title "A Brief History of Time" and author "Stephen Hawking"
 
         // Call the getBookDetails method on the book object to get the details of the book
